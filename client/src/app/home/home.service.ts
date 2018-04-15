@@ -17,26 +17,6 @@ export class EmotionService {
     constructor(private http: HttpClient) {
     }
 
-    private parameterPresent(searchParam: string) {
-        return this.emotionUrl.indexOf(searchParam) !== -1;
-    }
-
-    // remove the parameter and, if present, the &
-    private removeParameter(searchParam: string) {
-        const start = this.emotionUrl.indexOf(searchParam);
-        let end = 0;
-        if (this.emotionUrl.indexOf('&') !== -1) {
-            end = this.emotionUrl.indexOf('&', start) + 1;
-        } else {
-            end = this.emotionUrl.indexOf('&', start);
-        }
-        this.emotionUrl = this.emotionUrl.substring(0, start) + this.emotionUrl.substring(end);
-    }
-
-    getEmotions(emotionMood?: string): Observable<Emotion[]> {
-        return this.http.get<Emotion[]>(this.emotionUrl);
-    }
-
     addNewEmotion(newEmotion: Emotion): Observable<{'$oid': string}> {
         this.emotionUrl = this.baseUrl;
         this.noID = false;
